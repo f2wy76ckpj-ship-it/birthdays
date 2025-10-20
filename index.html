@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>🎂 Birthday Corner</title>
-<meta name="viewport" content="width=521,height=302,initial-scale=1.0,maximum-scale=1.0">
+<meta name="viewport" content="width=515,height=302,initial-scale=1.0,maximum-scale=1.0">
 <style>
   :root { 
     --accent:#F36C21; 
@@ -13,27 +13,28 @@
   }
 
   html,body{
-    width:521px; height:302px; margin:0; padding:0;
+    width:515px; height:302px; margin:0; padding:0;
     background:var(--bg);
     font-family:Khula, Arial, sans-serif; color:var(--text);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     overflow:hidden; position:relative;
   }
 
   h1{ 
     color:var(--accent); 
-    font-size:28px; 
-    margin:4px 0 10px 0; 
+    font-size:22px; 
+    margin:8px 0 4px 0; 
     text-align:center; 
     font-weight:600;
   }
 
   .card{
-    width:94%; height:66%; 
+    width:95%; 
+    flex:1;
     background:var(--card); 
-    border-radius:16px;
-    box-shadow:0 3px 6px rgba(0,0,0,.1); 
-    padding:10px 14px;
+    border-radius:14px;
+    box-shadow:0 2px 4px rgba(0,0,0,.08); 
+    padding:6px 10px;
     display:flex; flex-direction:column; align-items:center; justify-content:center; 
     text-align:center;
   }
@@ -41,33 +42,33 @@
   table{ 
     border-collapse:collapse; 
     width:100%; 
-    font-size:16px; 
+    font-size:14px; 
     font-weight:400;
   }
 
   th,td{ 
-    padding:4px 6px; 
+    padding:2px 4px; 
     font-weight:400;
   }
 
   th{ 
     color:var(--accent); 
-    font-size:16px; 
+    font-size:14px; 
     font-weight:600;
   }
 
   .empty{ 
-    font-size:20px; 
+    font-size:16px; 
     opacity:.8; 
     animation:pulse 2s infinite; 
   }
 
   .msg{ 
-    margin-top:6px; 
-    font-size:17px; 
+    font-size:14px; 
     color:var(--accent); 
     font-weight:500; 
     text-align:center; 
+    margin-top:4px;
   }
 
   @keyframes pulse{ 
@@ -77,15 +78,15 @@
 
   .balloon{ 
     position:absolute; 
-    bottom:-100px; 
-    font-size:32px; 
+    bottom:-80px; 
+    font-size:26px; 
     animation:floatUp 6s linear infinite; 
-    opacity:.9; 
+    opacity:.85; 
   }
 
   @keyframes floatUp{ 
     0%{transform:translateY(0) rotate(0);opacity:1} 
-    100%{transform:translateY(-400px) rotate(20deg);opacity:0} 
+    100%{transform:translateY(-340px) rotate(20deg);opacity:0} 
   }
 </style>
 </head>
@@ -99,13 +100,12 @@
 <script>
 const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json";
 
-/* ✅ TVOJ FORMAT JE MM-DD-YYYY (npr. 10-26-2025 = 26.10.) */
+/* Tvoj JSON je u formatu MM-DD-YYYY */
 function parseDate(str){
   const [m, d, y] = str.split("-").map(Number);
   return new Date(y, m - 1, d);
 }
 
-/* Formatiraj kao DD.MM. */
 function formatDate(d){
   const dd = String(d.getDate()).padStart(2,"0");
   const mm = String(d.getMonth()+1).padStart(2,"0");
@@ -124,14 +124,14 @@ async function loadData(){
 
 function launchBalloons(){
   const emojis = ["🎈","🎉","🎊","🥳"];
-  for(let i=0;i<8;i++){
+  for(let i=0;i<5;i++){
     const b = document.createElement("div");
     b.className = "balloon";
     b.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    b.style.left = Math.random()*480 + "px";
+    b.style.left = Math.random()*470 + "px";
     b.style.animationDuration = 4 + Math.random()*4 + "s";
     document.body.appendChild(b);
-    setTimeout(()=>b.remove(),8000);
+    setTimeout(()=>b.remove(),7000);
   }
 }
 
@@ -141,10 +141,9 @@ async function start(){
   const data = await loadData();
 
   const now = new Date();
-  const thisMonth = now.getMonth(); // 0-based
+  const thisMonth = now.getMonth();
   const monthName = now.toLocaleString("en-GB", {month:"long"});
 
-  // ✅ filtriraj po MJESECU (MM u JSON-u)
   const filtered = data.filter(x=>{
     if(!x.name || !x.date) return false;
     const d = parseDate(x.date);
@@ -155,10 +154,10 @@ async function start(){
   msg.textContent = "";
 
   if(filtered.length === 0){
-    tbl.innerHTML = `<tr><td class="empty">No birthdays in ${monthName} 🎈<br>Stay tuned for next month’s celebrations!</td></tr>`;
+    tbl.innerHTML = `<tr><td class="empty">No birthdays in ${monthName} 🎈</td></tr>`;
     const cake = document.createElement("div");
     cake.textContent = "🎂";
-    cake.style.fontSize = "70px";
+    cake.style.fontSize = "60px";
     cake.style.position = "absolute";
     cake.style.bottom = "10px";
     cake.style.opacity = "0.15";
