@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🎂 Birthday Corner</title>
+<meta name="viewport" content="width=662,height=317,initial-scale=1.0,maximum-scale=1.0">
+<style>
+  :root {
+    --accent:#F36C21; --bg:#fff; --card:#fffefc; --text:#2c3e50;
+  }
+
+  html,body {
+    width:662px; height:317px;
+    margin:0; padding:0;
+    background:var(--bg);
+    font-family:Khula, Arial, sans-serif;
+    color:var(--text);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  h1 {
+    color:var(--accent);
+    font-size:32px;
+    margin:6px 0 10px 0;
+    text-align:center;
+  }
+
+  .card {
+    width:94%;
+    height:72%;
+    background:var(--card);
+    border-radius:18px;
+    box-shadow:0 3px 6px rgba(0,0,0,.1);
+    padding:12px 16px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+
+  table {
+    border-collapse:collapse;
+    width:100%;
+    font-size:24px;
+  }
+
+  th, td {
+    padding:4px 6px;
+  }
+
+  th {
+    color:var(--accent);
+    font-size:20px;
+  }
+
+  .empty {
+    font-size:22px;
+    opacity:0.7;
+  }
+</style>
+</head>
+<body>
+  <h1>🎂 Birthday Corner</h1>
+  <div class="card" id="card">
+    <table id="tbl"><tr><td>Loading…</td></tr></table>
+  </div>
+
+<script>
+// URL prema JSON datoteci s rođendanima
+const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/celebrations.json";
+
+async function loadData(){
+  try {
+    const r = await fetch(dataURL, {cache:"no-store"});
+    if(!r.ok) throw new Error();
+    return await r.json();
+  } catch {
+    return [];
+  }
+}
+
+function getWeekRange(){
+  const today = new Date();
+  const day = today.getDay(); // 0=Sun
+  const diffToMonday = (day === 0 ? -6 : 1 - day);
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + diffToMonday);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  return [monday, sunday];
+}
+
+function sameWeek(date, start, end){
+  const year = new Date().getFullYear();
+  const d = new Date(year, date.getMonth(), date.getDate());
+  return d >= start && d <= end;
+}
+
+function formatDate(d){
+  return d.toLocaleDateString("en-GB", {day:"2-digit", month:"2-digit"});
+}
+
+async function start(){
+  const tbl = document.getElementById("tbl");
+  const [startW, endW] = getWeekRange();
+  const data = await loadData();
+
+  const filtered = data.filter(x => {
+    if(!x.name || x.name.toLowerCase().includes("no birthday")) return false;
+    const d = new Date(x.date);
+    return sameWeek(d, startW, endW);
+  });
+
+  tbl.innerHTML = "";
+  if(filtered.length === 0){
+    tbl.innerHTML = `<tr><td class="empty">No birthdays this week 🎈<br>Stay tuned for next week’s celebrations!</td></tr>`;
+    return;
+  }
+
+  const header = document.createElement("tr");
+  header.innerHTML = "<th>Name</th><th>Department</th><th>Position</th><th>Date</th>";
+  tbl.appendChild(header);
+
+  filtered.forEach(x => {
+    const d = new Date(x.date);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${x.name}</td><td>${x.department||""}</td><td>${x.position||""}</td><td>${formatDate(d)}</td>`;
+    tbl.appendChild(tr);
+  });
+}
+
+start();
+</script>
+</body>
+</html>
