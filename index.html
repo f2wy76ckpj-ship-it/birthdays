@@ -20,6 +20,7 @@
     align-items:center;
     justify-content:center;
     overflow:hidden;
+    position:relative;
   }
 
   h1 {
@@ -27,11 +28,12 @@
     font-size:32px;
     margin:6px 0 10px 0;
     text-align:center;
+    z-index:10;
   }
 
   .card {
     width:94%;
-    height:72%;
+    height:66%;
     background:var(--card);
     border-radius:18px;
     box-shadow:0 3px 6px rgba(0,0,0,.1);
@@ -41,6 +43,7 @@
     align-items:center;
     justify-content:center;
     text-align:center;
+    z-index:10;
   }
 
   table {
@@ -49,18 +52,40 @@
     font-size:20px;
   }
 
-  th, td {
-    padding:4px 6px;
-  }
-
-  th {
-    color:var(--accent);
-    font-size:18px;
-  }
+  th, td { padding:4px 6px; }
+  th { color:var(--accent); font-size:18px; }
 
   .empty {
     font-size:22px;
-    opacity:0.7;
+    opacity:0.8;
+    animation:pulse 2s infinite;
+  }
+
+  .msg {
+    margin-top:6px;
+    font-size:18px;
+    color:var(--accent);
+    font-weight:600;
+    text-align:center;
+  }
+
+  @keyframes pulse {
+    0%,100% { transform:scale(1); opacity:0.8; }
+    50% { transform:scale(1.05); opacity:1; }
+  }
+
+  /* Baloni 🎈 */
+  .balloon {
+    position:absolute;
+    bottom:-100px;
+    font-size:36px;
+    animation:floatUp 6s linear infinite;
+    opacity:0.9;
+  }
+
+  @keyframes floatUp {
+    0% { transform:translateY(0) rotate(0deg); opacity:1; }
+    100% { transform:translateY(-420px) rotate(20deg); opacity:0; }
   }
 </style>
 </head>
@@ -69,10 +94,10 @@
   <div class="card" id="card">
     <table id="tbl"><tr><td>Loading…</td></tr></table>
   </div>
+  <div class="msg" id="msg"></div>
 
 <script>
-// URL prema JSON datoteci s rođendanima
-const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json"; // <-- izmijenjeno
+const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json";
 
 async function loadData(){
   try {
@@ -86,7 +111,7 @@ async function loadData(){
 
 function getWeekRange(){
   const today = new Date();
-  const day = today.getDay(); // 0=Sun
+  const day = today.getDay();
   const diffToMonday = (day === 0 ? -6 : 1 - day);
   const monday = new Date(today);
   monday.setDate(today.getDate() + diffToMonday);
@@ -97,7 +122,6 @@ function getWeekRange(){
 
 function sameWeek(date, start, end){
   const year = new Date().getFullYear();
-  // Parsiramo samo mjesec i dan iz JSON datuma
   const [day, month] = [date.getDate(), date.getMonth()];
   const d = new Date(year, month, day);
   return d >= start && d <= end;
@@ -107,22 +131,45 @@ function formatDate(d){
   return d.toLocaleDateString("en-GB", {day:"2-digit", month:"2-digit"});
 }
 
+function launchBalloons(){
+  const emojis = ["🎈","🎉","🎊","🥳"];
+  for(let i=0;i<10;i++){
+    const b = document.createElement("div");
+    b.className="balloon";
+    b.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    b.style.left = Math.random()*620 + "px";
+    b.style.animationDuration = 4 + Math.random()*4 + "s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),8000);
+  }
+}
+
 async function start(){
   const tbl = document.getElementById("tbl");
+  const msg = document.getElementById("msg");
   const [startW, endW] = getWeekRange();
   const data = await loadData();
 
-  // Pretvaramo string datume "dd-mm-yyyy" u Date objekte
-  const filtered = data.filter(x => {
+  const filtered = data.filter(x=>{
     if(!x.name) return false;
     const [day, month, year] = x.date.split("-").map(Number);
-    const d = new Date(year, month - 1, day);
+    const d = new Date(year, month-1, day);
     return sameWeek(d, startW, endW);
   });
 
   tbl.innerHTML = "";
+  msg.textContent = "";
+
   if(filtered.length === 0){
     tbl.innerHTML = `<tr><td class="empty">No birthdays this week 🎈<br>Stay tuned for next week’s celebrations!</td></tr>`;
+    const cake = document.createElement("div");
+    cake.textContent = "🎂";
+    cake.style.fontSize = "80px";
+    cake.style.position = "absolute";
+    cake.style.bottom = "10px";
+    cake.style.opacity = "0.15";
+    cake.style.animation = "pulse 3s infinite";
+    document.body.appendChild(cake);
     return;
   }
 
@@ -130,13 +177,16 @@ async function start(){
   header.innerHTML = "<th>Name</th><th>Department</th><th>Position</th><th>Date</th>";
   tbl.appendChild(header);
 
-  filtered.forEach(x => {
+  filtered.forEach(x=>{
     const [day, month, year] = x.date.split("-").map(Number);
-    const d = new Date(year, month - 1, day);
+    const d = new Date(year, month-1, day);
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${x.name}</td><td>${x.department||""}</td><td>${x.position||""}</td><td>${formatDate(d)}</td>`;
     tbl.appendChild(tr);
   });
+
+  msg.textContent = "🎉 Happy Birthday to our amazing team members! 🎉";
+  launchBalloons();
 }
 
 start();
