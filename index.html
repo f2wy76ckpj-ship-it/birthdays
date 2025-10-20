@@ -120,11 +120,13 @@ function getWeekRange(){
   return [monday, sunday];
 }
 
+// ✅ NOVA verzija koja radi i na Yodecku (UTC-safe)
 function sameWeek(date, start, end){
-  const year = new Date().getFullYear();
-  const [day, month] = [date.getDate(), date.getMonth()];
-  const d = new Date(year, month, day);
-  return d >= start && d <= end;
+  const [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()];
+  const test = new Date(year, month, day);
+  const s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const e = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  return test >= s && test <= e;
 }
 
 function formatDate(d){
