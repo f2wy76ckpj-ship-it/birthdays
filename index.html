@@ -3,36 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <title>🎂 Birthday Corner</title>
-<meta name="viewport" content="width=662,height=317,initial-scale=1.0,maximum-scale=1.0">
+<meta name="viewport" content="width=521,height=302,initial-scale=1.0,maximum-scale=1.0">
 <style>
-  :root { --accent:#F36C21; --bg:#fff; --card:#fffefc; --text:#2c3e50; }
+  :root { 
+    --accent:#F36C21; 
+    --bg:#fff; 
+    --card:#fffefc; 
+    --text:#2c3e50; 
+  }
 
   html,body{
-    width:662px; height:317px; margin:0; padding:0; background:var(--bg);
+    width:521px; height:302px; margin:0; padding:0;
+    background:var(--bg);
     font-family:Khula, Arial, sans-serif; color:var(--text);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     overflow:hidden; position:relative;
   }
 
-  h1{ color:var(--accent); font-size:32px; margin:6px 0 10px 0; text-align:center; z-index:10; }
-
-  .card{
-    width:94%; height:66%; background:var(--card); border-radius:18px;
-    box-shadow:0 3px 6px rgba(0,0,0,.1); padding:12px 16px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; z-index:10;
+  h1{ 
+    color:var(--accent); 
+    font-size:28px; 
+    margin:4px 0 10px 0; 
+    text-align:center; 
+    font-weight:600;
   }
 
-  table{ border-collapse:collapse; width:100%; font-size:18px; }
-  th,td{ padding:4px 6px; }
-  th{ color:var(--accent); font-size:18px; }
+  .card{
+    width:94%; height:66%; 
+    background:var(--card); 
+    border-radius:16px;
+    box-shadow:0 3px 6px rgba(0,0,0,.1); 
+    padding:10px 14px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; 
+    text-align:center;
+  }
 
-  .empty{ font-size:22px; opacity:.8; animation:pulse 2s infinite; }
-  .msg{ margin-top:6px; font-size:18px; color:var(--accent); font-weight:600; text-align:center; }
+  table{ 
+    border-collapse:collapse; 
+    width:100%; 
+    font-size:16px; 
+    font-weight:400;
+  }
 
-  @keyframes pulse{ 0%,100%{transform:scale(1);opacity:.8} 50%{transform:scale(1.05);opacity:1} }
+  th,td{ 
+    padding:4px 6px; 
+    font-weight:400;
+  }
 
-  .balloon{ position:absolute; bottom:-100px; font-size:36px; animation:floatUp 6s linear infinite; opacity:.9; }
-  @keyframes floatUp{ 0%{transform:translateY(0) rotate(0);opacity:1} 100%{transform:translateY(-420px) rotate(20deg);opacity:0} }
+  th{ 
+    color:var(--accent); 
+    font-size:16px; 
+    font-weight:600;
+  }
+
+  .empty{ 
+    font-size:20px; 
+    opacity:.8; 
+    animation:pulse 2s infinite; 
+  }
+
+  .msg{ 
+    margin-top:6px; 
+    font-size:17px; 
+    color:var(--accent); 
+    font-weight:500; 
+    text-align:center; 
+  }
+
+  @keyframes pulse{ 
+    0%,100%{transform:scale(1);opacity:.8} 
+    50%{transform:scale(1.05);opacity:1} 
+  }
+
+  .balloon{ 
+    position:absolute; 
+    bottom:-100px; 
+    font-size:32px; 
+    animation:floatUp 6s linear infinite; 
+    opacity:.9; 
+  }
+
+  @keyframes floatUp{ 
+    0%{transform:translateY(0) rotate(0);opacity:1} 
+    100%{transform:translateY(-400px) rotate(20deg);opacity:0} 
+  }
 </style>
 </head>
 <body>
@@ -45,16 +99,10 @@
 <script>
 const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json";
 
-/* Robusno parsiranje:
-   - Ako prvi broj > 12 => tretiraj kao DD-MM-YYYY
-   - Inače tretiraj kao MM-DD-YYYY (tvoj dataset)
-*/
-function parseFlexibleDate(str){
-  const [a,b,c] = str.split("-").map(Number);
-  const monthFirst = a <= 12; // prefer MDY kad je dvosmisleno
-  const m = monthFirst ? a : b;
-  const d = monthFirst ? b : a;
-  return new Date(c, m - 1, d);
+/* Ispravljen parser: dataset koristi DD-MM-YYYY */
+function parseDate(str){
+  const [d, m, y] = str.split("-").map(Number);
+  return new Date(y, m - 1, d);
 }
 
 async function loadData(){
@@ -73,11 +121,11 @@ function formatDate(d){
 
 function launchBalloons(){
   const emojis = ["🎈","🎉","🎊","🥳"];
-  for(let i=0;i<10;i++){
+  for(let i=0;i<8;i++){
     const b = document.createElement("div");
     b.className = "balloon";
     b.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    b.style.left = Math.random()*620 + "px";
+    b.style.left = Math.random()*480 + "px";
     b.style.animationDuration = 4 + Math.random()*4 + "s";
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),8000);
@@ -90,13 +138,12 @@ async function start(){
   const data = await loadData();
 
   const now = new Date();
-  const thisMonth = now.getMonth(); // 0=Jan
+  const thisMonth = now.getMonth();
   const monthName = now.toLocaleString("en-GB", {month:"long"});
 
-  // filtriraj po TEKUĆEM mjesecu (ignorira godinu)
   const filtered = data.filter(x=>{
     if(!x.name || !x.date) return false;
-    const d = parseFlexibleDate(x.date);
+    const d = parseDate(x.date);
     return d.getMonth() === thisMonth;
   });
 
@@ -107,7 +154,7 @@ async function start(){
     tbl.innerHTML = `<tr><td class="empty">No birthdays in ${monthName} 🎈<br>Stay tuned for next month’s celebrations!</td></tr>`;
     const cake = document.createElement("div");
     cake.textContent = "🎂";
-    cake.style.fontSize = "80px";
+    cake.style.fontSize = "70px";
     cake.style.position = "absolute";
     cake.style.bottom = "10px";
     cake.style.opacity = "0.15";
@@ -116,10 +163,9 @@ async function start(){
     return;
   }
 
-  // Sortiraj po DANU u mjesecu (koristi parsirani datum)
   filtered.sort((a,b)=>{
-    const da = parseFlexibleDate(a.date).getDate();
-    const db = parseFlexibleDate(b.date).getDate();
+    const da = parseDate(a.date).getDate();
+    const db = parseDate(b.date).getDate();
     return da - db;
   });
 
@@ -128,7 +174,7 @@ async function start(){
   tbl.appendChild(header);
 
   filtered.forEach(x=>{
-    const d = parseFlexibleDate(x.date);
+    const d = parseDate(x.date);
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${x.name}</td><td>${x.department||""}</td><td>${x.position||""}</td><td>${formatDate(d)}</td>`;
     tbl.appendChild(tr);
