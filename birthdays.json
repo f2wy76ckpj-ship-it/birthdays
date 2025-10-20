@@ -1,0 +1,338 @@
+[
+  {
+    "name": "Jeremy Lesgards",
+    "date": "01-02-2025",
+    "start_date": "01-01-2025",
+    "position": "Deputy Manager",
+    "department": "Tunnel"
+  },
+  {
+    "name": "Nikolina Poljak",
+    "date": "01-04-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Quality & Geology"
+  },
+  {
+    "name": "Vigor Kiršić",
+    "date": "01-10-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Safety"
+  },
+  {
+    "name": "Mile Jerbić",
+    "date": "01-10-2025",
+    "start_date": "01-01-2025",
+    "position": "Chief Engineer",
+    "department": "Mechanical"
+  },
+  {
+    "name": "Tomislav Ladavac",
+    "date": "01-28-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer",
+    "department": "Road, Traffic & Equipment"
+  },
+  {
+    "name": "Marko Denona",
+    "date": "02-06-2025",
+    "start_date": "01-01-2025",
+    "position": "Engineer",
+    "department": "Methods"
+  },
+  {
+    "name": "Joseph techer",
+    "date": "02-12-2025",
+    "start_date": "01-01-2025",
+    "position": "Superintendant",
+    "department": "Viaducts"
+  },
+  {
+    "name": "Elise Delgrange",
+    "date": "02-18-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer",
+    "department": "Eartwork"
+  },
+  {
+    "name": "Nataša Vičić",
+    "date": "02-21-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Human Resources"
+  },
+  {
+    "name": "Dinko Petričević",
+    "date": "03-01-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Mirna Viaduct"
+  },
+  {
+    "name": "Matej Rubinić",
+    "date": "03-01-2025",
+    "start_date": "01-01-2025",
+    "position": "Assistant Engineer",
+    "department": "Drainage"
+  },
+  {
+    "name": "Pejo Bliznac",
+    "date": "03-12-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer",
+    "department": "Mining"
+  },
+  {
+    "name": "Stephane Hossard",
+    "date": "03-18-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Cost Control"
+  },
+  {
+    "name": "Luka Rigo",
+    "date": "03-20-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer | Deputy Manager",
+    "department": "Utilities diversion & Asphalt | Road"
+  },
+  {
+    "name": "Goran Lazarić",
+    "date": "03-29-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Cost Control"
+  },
+  {
+    "name": "Luka Delšeno",
+    "date": "03-31-2025",
+    "start_date": "01-01-2025",
+    "position": "Assistant Engineer",
+    "department": "Limska Draga Viaduct"
+  },
+  {
+    "name": "Valentina Matijaš Butković",
+    "date": "04-04-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Safety"
+  },
+  {
+    "name": "Izabela Krnjus",
+    "date": "04-06-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Limska Draga Viaduct"
+  },
+  {
+    "name": "Anđelo Mofardin",
+    "date": "04-13-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "General service"
+  },
+  {
+    "name": "Dean Červar",
+    "date": "04-21-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer",
+    "department": "Drainage"
+  },
+  {
+    "name": "Jurica Stepančić",
+    "date": "04-21-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Safety"
+  },
+  {
+    "name": "Paolo Gortan",
+    "date": "05-08-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer",
+    "department": "Mining"
+  },
+  {
+    "name": "Antun Selar",
+    "date": "05-29-2025",
+    "start_date": "01-01-2025",
+    "position": "Assistant Engineer",
+    "department": "Eartwork"
+  },
+  {
+    "name": "Tomislav Vinski",
+    "date": "06-01-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Road & Tunnel"
+  },
+  {
+    "name": "Nikola Škorić",
+    "date": "06-02-2025",
+    "start_date": "01-01-2025",
+    "position": "Assistant Engineer",
+    "department": "Drainage"
+  },
+  {
+    "name": "Guillaume Morel",
+    "date": "06-02-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Methods"
+  },
+  {
+    "name": "Petra Maras Mogorović",
+    "date": "06-03-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Cost Control"
+  },
+  {
+    "name": "Jean Pierre De La Rosa",
+    "date": "06-03-2025",
+    "start_date": "01-01-2025",
+    "position": "Superintendant",
+    "department": "Eartwork"
+  },
+  {
+    "name": "Roberta Gržević",
+    "date": "06-05-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Accounting"
+  },
+  {
+    "name": "Petra Dobran Križmanić",
+    "date": "06-14-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Human Resources"
+  },
+  {
+    "name": "Pero Pavičić",
+    "date": "06-16-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Eartwork & Mining"
+  },
+  {
+    "name": "Ante Toljan",
+    "date": "06-29-2025",
+    "start_date": "01-01-2025",
+    "position": "Supervisor",
+    "department": "Viaducts"
+  },
+  {
+    "name": "Izabela Starčić",
+    "date": "07-02-2025",
+    "start_date": "01-01-2025",
+    "position": "Receptionist",
+    "department": "Document control"
+  },
+  {
+    "name": "Nikol Banovac",
+    "date": "07-02-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Human Resources"
+  },
+  {
+    "name": "Marija Patljak Bilić",
+    "date": "07-31-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Human Resources"
+  },
+  {
+    "name": "Ivan Trušnovec",
+    "date": "08-26-2025",
+    "start_date": "01-01-2025",
+    "position": "Site Engineer",
+    "department": "Bridges"
+  },
+  {
+    "name": "Miroslav Keser",
+    "date": "08-30-2025",
+    "start_date": "01-01-2025",
+    "position": "Chief Engineer",
+    "department": "Electrical"
+  },
+  {
+    "name": "Božidar Stipković",
+    "date": "09-21-2025",
+    "start_date": "01-01-2025",
+    "position": "Chief Engineer",
+    "department": "Legal Site"
+  },
+  {
+    "name": "Robert Stranić",
+    "date": "10-12-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "IT"
+  },
+  {
+    "name": "Phillipine Deguerre",
+    "date": "10-26-2025",
+    "start_date": "01-01-2025",
+    "position": "Engineer",
+    "department": "Steel Deck"
+  },
+  {
+    "name": "Nensi Bošnjak",
+    "date": "10-30-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Accounting"
+  },
+  {
+    "name": "Luka Dujmović",
+    "date": "11-10-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Project"
+  },
+  {
+    "name": "Nikola Vukić",
+    "date": "11-19-2025",
+    "start_date": "01-01-2025",
+    "position": "Officer",
+    "department": "Safety"
+  },
+  {
+    "name": "Ana Kukolja",
+    "date": "11-24-2025",
+    "start_date": "01-01-2025",
+    "position": "Assistant",
+    "department": "Management"
+  },
+  {
+    "name": "Korina Zugan",
+    "date": "12-01-2025",
+    "start_date": "01-01-2025",
+    "position": "Assistant Engineer",
+    "department": "Eartwork & Geology"
+  },
+  {
+    "name": "Aleksandra Bravar Gržinić",
+    "date": "12-12-2025",
+    "start_date": "01-01-2025",
+    "position": "Manager",
+    "department": "Accounting"
+  },
+  {
+    "name": "Teodora Franković",
+    "date": "12-15-2025",
+    "start_date": "01-01-2025",
+    "position": "Engineer",
+    "department": "Methods"
+  },
+  {
+    "name": "Jeremy Laporte",
+    "date": "12-16-2025",
+    "start_date": "01-01-2025",
+    "position": "Chief Officer",
+    "department": "Fnancial"
+  }
+]
