@@ -74,7 +74,6 @@
     50% { transform:scale(1.05); opacity:1; }
   }
 
-  /* Baloni 🎈 */
   .balloon {
     position:absolute;
     bottom:-100px;
@@ -120,13 +119,13 @@ function getWeekRange(){
   return [monday, sunday];
 }
 
-// ✅ NOVA verzija koja radi i na Yodecku (UTC-safe)
+// ✅ Ignorira godinu – računa tjedan prema trenutnoj godini
 function sameWeek(date, start, end){
-  const [day, month, year] = [date.getDate(), date.getMonth(), date.getFullYear()];
-  const test = new Date(year, month, day);
-  const s = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-  const e = new Date(end.getFullYear(), end.getMonth(), end.getDate());
-  return test >= s && test <= e;
+  const nowYear = new Date().getFullYear();
+  const d = new Date(nowYear, date.getMonth(), date.getDate());
+  const s = new Date(nowYear, start.getMonth(), start.getDate());
+  const e = new Date(nowYear, end.getMonth(), end.getDate());
+  return d >= s && d <= e;
 }
 
 function formatDate(d){
