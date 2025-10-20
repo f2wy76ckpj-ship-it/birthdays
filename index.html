@@ -99,9 +99,9 @@
 <script>
 const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json";
 
-/* ✅ Tvoj format je DD-MM-YYYY */
+/* ✅ TVOJ FORMAT JE MM-DD-YYYY (npr. 10-26-2025 = 26.10.) */
 function parseDate(str){
-  const [d, m, y] = str.split("-").map(Number);
+  const [m, d, y] = str.split("-").map(Number);
   return new Date(y, m - 1, d);
 }
 
@@ -144,7 +144,7 @@ async function start(){
   const thisMonth = now.getMonth(); // 0-based
   const monthName = now.toLocaleString("en-GB", {month:"long"});
 
-  // ✅ Filtriraj po MJESECU, ne po danu
+  // ✅ filtriraj po MJESECU (MM u JSON-u)
   const filtered = data.filter(x=>{
     if(!x.name || !x.date) return false;
     const d = parseDate(x.date);
