@@ -46,7 +46,7 @@
   table {
     border-collapse:collapse;
     width:100%;
-    font-size:24px;
+    font-size:20px;
   }
 
   th, td {
@@ -55,7 +55,7 @@
 
   th {
     color:var(--accent);
-    font-size:20px;
+    font-size:18px;
   }
 
   .empty {
@@ -72,7 +72,7 @@
 
 <script>
 // URL prema JSON datoteci s rođendanima
-const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/celebrations.json";
+const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json"; // <-- izmijenjeno
 
 async function loadData(){
   try {
@@ -97,7 +97,9 @@ function getWeekRange(){
 
 function sameWeek(date, start, end){
   const year = new Date().getFullYear();
-  const d = new Date(year, date.getMonth(), date.getDate());
+  // Parsiramo samo mjesec i dan iz JSON datuma
+  const [day, month] = [date.getDate(), date.getMonth()];
+  const d = new Date(year, month, day);
   return d >= start && d <= end;
 }
 
@@ -110,9 +112,11 @@ async function start(){
   const [startW, endW] = getWeekRange();
   const data = await loadData();
 
+  // Pretvaramo string datume "dd-mm-yyyy" u Date objekte
   const filtered = data.filter(x => {
-    if(!x.name || x.name.toLowerCase().includes("no birthday")) return false;
-    const d = new Date(x.date);
+    if(!x.name) return false;
+    const [day, month, year] = x.date.split("-").map(Number);
+    const d = new Date(year, month - 1, day);
     return sameWeek(d, startW, endW);
   });
 
@@ -127,7 +131,8 @@ async function start(){
   tbl.appendChild(header);
 
   filtered.forEach(x => {
-    const d = new Date(x.date);
+    const [day, month, year] = x.date.split("-").map(Number);
+    const d = new Date(year, month - 1, day);
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${x.name}</td><td>${x.department||""}</td><td>${x.position||""}</td><td>${formatDate(d)}</td>`;
     tbl.appendChild(tr);
