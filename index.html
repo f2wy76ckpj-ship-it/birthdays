@@ -99,10 +99,17 @@
 <script>
 const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json";
 
-/* Ispravljen parser: dataset koristi DD-MM-YYYY */
+/* ✅ Tvoj format je DD-MM-YYYY */
 function parseDate(str){
   const [d, m, y] = str.split("-").map(Number);
   return new Date(y, m - 1, d);
+}
+
+/* Formatiraj kao DD.MM. */
+function formatDate(d){
+  const dd = String(d.getDate()).padStart(2,"0");
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  return `${dd}.${mm}.`;
 }
 
 async function loadData(){
@@ -113,10 +120,6 @@ async function loadData(){
   }catch{
     return [];
   }
-}
-
-function formatDate(d){
-  return d.toLocaleDateString("en-GB", {day:"2-digit", month:"2-digit"});
 }
 
 function launchBalloons(){
@@ -138,9 +141,10 @@ async function start(){
   const data = await loadData();
 
   const now = new Date();
-  const thisMonth = now.getMonth();
+  const thisMonth = now.getMonth(); // 0-based
   const monthName = now.toLocaleString("en-GB", {month:"long"});
 
+  // ✅ Filtriraj po MJESECU, ne po danu
   const filtered = data.filter(x=>{
     if(!x.name || !x.date) return false;
     const d = parseDate(x.date);
