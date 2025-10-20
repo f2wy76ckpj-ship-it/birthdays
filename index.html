@@ -42,8 +42,8 @@
   table{ 
     border-collapse:collapse; 
     width:100%; 
-    font-size:14px; 
     font-weight:400;
+    transition:font-size 0.3s ease;
   }
 
   th,td{ 
@@ -53,7 +53,6 @@
 
   th{ 
     color:var(--accent); 
-    font-size:14px; 
     font-weight:600;
   }
 
@@ -100,7 +99,7 @@
 <script>
 const dataURL = "https://raw.githubusercontent.com/f2wy76ckpj-ship-it/birthdays/main/birthdays.json";
 
-/* Tvoj JSON je u formatu MM-DD-YYYY */
+/* JSON format: MM-DD-YYYY */
 function parseDate(str){
   const [m, d, y] = str.split("-").map(Number);
   return new Date(y, m - 1, d);
@@ -133,6 +132,15 @@ function launchBalloons(){
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),7000);
   }
+}
+
+function adjustFontSize(rowCount){
+  const tbl = document.getElementById("tbl");
+  let size = 14;
+  if(rowCount > 8) size = 11;
+  else if(rowCount > 6) size = 12;
+  else if(rowCount > 4) size = 13;
+  tbl.style.fontSize = size + "px";
 }
 
 async function start(){
@@ -183,6 +191,7 @@ async function start(){
     tbl.appendChild(tr);
   });
 
+  adjustFontSize(filtered.length);
   msg.textContent = `🎉 Happy birthdays in ${monthName}! 🎉`;
   launchBalloons();
 }
